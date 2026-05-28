@@ -1,0 +1,21 @@
+# Environments
+venv/
+env/
+.env
+.venv
+__pycache__/
+
+# AWS Keys
+*.pem
+
+# Local Database
+*.db
+local_classroom.db
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Virtual Classroom - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="alert-container">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category if category != 'error' else 'danger' }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="{{ url_for('home') }}">
+          <span class="brand-icon"><i class="bi bi-mortarboard-fill"></i></span>
+          Virtual Classroom
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('content') }}">Courses</a>
+            </li>
+            {% if session.username %}
+              <li class="nav-item ms-2">
+                <span class="nav-link" style="color: var(--text-tertiary);">{{ session.username.split('@')[0] }}</span>
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-outline-primary btn-sm" href="{{ url_for('logout') }}">Log out</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('login') }}">Log in</a>
+              </li>
+              <li class="nav-item ms-1">
+                <a class="btn btn-primary btn-sm" href="{{ url_for('register') }}">Sign up</a>
+              </li>
+            {% endif %}
+            <li class="nav-item ms-2">
+              <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                <i class="bi bi-moon-fill"></i>
+                <i class="bi bi-sun-fill"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero text-center">
+      <div class="container">
+        <p class="section-heading">Cloud-Native Learning Platform</p>
+        <h1>Learn anywhere, anytime<br>with Virtual Classroom</h1>
+        <p class="lead">
+          A secure and scalable platform for accessing courses, sharing materials, and collaborating with peers — powered by AWS.
+        </p>
+        {% if session.username %}
+          <a href="{{ url_for('content') }}" class="btn btn-primary btn-lg">
+            <i class="bi bi-grid-1x2 me-1"></i> Go to Dashboard
+          </a>
+        {% else %}
+          <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">Get Started</a>
+          <a href="{{ url_for('login') }}" class="btn btn-outline-primary btn-lg ms-2">Log in</a>
+        {% endif %}
+      </div>
+    </header>
+
+    <main class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
+      <div class="text-center mb-4">
+        <p class="section-heading">Platform Features</p>
+        <h2>Everything you need to learn effectively</h2>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body text-center p-4">
+              <div class="feature-icon-box"><i class="bi bi-camera-video"></i></div>
+              <h3 class="card-title">Live Classes</h3>
+              <p class="card-text">Join interactive sessions with expert instructors in real time.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body text-center p-4">
+              <div class="feature-icon-box"><i class="bi bi-journal-richtext"></i></div>
+              <h3 class="card-title">Rich Content</h3>
+              <p class="card-text">Access structured course materials, PDFs, and learning resources.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body text-center p-4">
+              <div class="feature-icon-box"><i class="bi bi-people"></i></div>
+              <h3 class="card-title">Collaboration</h3>
+              <p class="card-text">Connect with peers, share notes, and work on projects together.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container text-center">
+        <p>&copy; 2026 Virtual Classroom. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
