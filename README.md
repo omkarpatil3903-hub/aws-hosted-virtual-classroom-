@@ -75,7 +75,7 @@ AWS-hosted-Virtual-Classroom-and-Learning-Platform/
    - Connect to S3 using `boto3` and to RDS using `pymysql`
 3. **Deploy Application:**
    - SSH into EC2, clone GitHub repo, install dependencies
-   - Run Flask app using evelopment server
+   - Run Flask app using development server
 4. **Push Code to GitHub**
 
 ---
